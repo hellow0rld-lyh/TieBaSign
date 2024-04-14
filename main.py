@@ -100,6 +100,7 @@ def get_favorite(bduss):
         returnData['forum_list']['non-gconforum'] = []
     if 'gconforum' not in returnData['forum_list']:
         returnData['forum_list']['gconforum'] = []
+    logger.info("103")
     while 'has_more' in res and res['has_more'] == '1':
         i = i + 1
         data = {
@@ -117,6 +118,7 @@ def get_favorite(bduss):
             'vcode_tag': '11',
         }
         data = encodeData(data)
+        logger.info("121")
         try:
             res = s.post(url=LIKIE_URL, data=data, timeout=5).json()
         except Exception as e:
