@@ -230,6 +230,7 @@ def main():
         for j in favorites:
             time.sleep(random.randint(1,5))
             logger.info("正在完成第" + str(n+1) + "个用户签到")
+            logger.info("i:"+i+ "\ntbs:"+tbs+"\nj["id"] "+j["id"]+"\nj["name"] "+ j["name"])
             client_sign(i, tbs, j["id"], j["name"])
             logger.info("完成第" + str(n+1) + "个用户签到234")
         logger.info("完成第" + str(n+1) + "个用户签到")
