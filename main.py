@@ -128,7 +128,10 @@ def get_favorite(bduss):
             returnData['forum_list']['non-gconforum'].append(res['forum_list']['non-gconforum'])
         if 'gconforum' in res['forum_list']:
             returnData['forum_list']['gconforum'].append(res['forum_list']['gconforum'])
-
+    try:
+        logger.info("关注的贴吧列表: {}".format(t))
+    except Exception as e:
+        logger.error("132："+e)
     t = []
     for i in returnData['forum_list']['non-gconforum']:
         if isinstance(i, list):
