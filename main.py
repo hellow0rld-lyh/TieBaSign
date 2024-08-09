@@ -100,6 +100,7 @@ def get_favorite(bduss):
         returnData['forum_list']['non-gconforum'] = []
     if 'gconforum' not in returnData['forum_list']:
         returnData['forum_list']['gconforum'] = []
+    logger.info("103")
     while 'has_more' in res and res['has_more'] == '1':
         i = i + 1
         data = {
@@ -117,6 +118,7 @@ def get_favorite(bduss):
             'vcode_tag': '11',
         }
         data = encodeData(data)
+        logger.info("121")
         try:
             res = s.post(url=LIKIE_URL, data=data, timeout=5).json()
         except Exception as e:
@@ -128,7 +130,11 @@ def get_favorite(bduss):
             returnData['forum_list']['non-gconforum'].append(res['forum_list']['non-gconforum'])
         if 'gconforum' in res['forum_list']:
             returnData['forum_list']['gconforum'].append(res['forum_list']['gconforum'])
-
+    t = []
+    try:
+        logger.info("关注的贴吧列表: {}".format(t))
+    except Exception as e:
+        logger.error("132："+ str(e))
     t = []
     for i in returnData['forum_list']['non-gconforum']:
         if isinstance(i, list):
@@ -150,6 +156,7 @@ def get_favorite(bduss):
                     t.append(j)
         else:
             t.append(i)
+    logger.info("关注的贴吧列表: {}".format(t))
     logger.info("获取关注的贴吧结束")
     return t
 
@@ -217,16 +224,19 @@ def main():
         return
     b = ENV['BDUSS'].split('#')
     for n, i in enumerate(b):
-        logger.info("开始签到第" + str(n) + "个用户" + i)
+        logger.info("开始签到第" + str(n+1) + "个用户" + i)
         tbs = get_tbs(i)
         favorites = get_favorite(i)
         for j in favorites:
             time.sleep(random.randint(1,5))
+            logger.info("正在完成第" + str(n+1) + "个用户签到")
+            logger.info("i:"+i+ "\ntbs:"+tbs+"\nj[\"id\"] "+j["id"]+"\nj[\"name\"] "+ j["name"])
             client_sign(i, tbs, j["id"], j["name"])
-        logger.info("完成第" + str(n) + "个用户签到")
+            logger.info("完成第" + str(n+1) + "个用户签到234")
+        logger.info("完成第" + str(n+1) + "个用户签到")
     #send_email(favorites)
     logger.info("所有用户签到结束")
 
-
+    
 if __name__ == '__main__':
     main()
