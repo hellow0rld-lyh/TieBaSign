@@ -6,15 +6,16 @@ on:
       - main
   schedule:
     - cron: '3 16,22 * * *'
+  workflow_dispatch:
 
 jobs:
   tieba_sign:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout codes'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: 'Set python'
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       - name: 'Install dependencies'
